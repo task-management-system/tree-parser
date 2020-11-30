@@ -45,6 +45,10 @@ const parse = text => {
 			}
 		}
 
+		if (path.length === 0) {
+			path.push(0);
+		}
+
 		const key = path.join('_');
 		const parentKey = path.slice(0, path.length - 1).join('_');
 		// const branch = new Branch(name, cache.get(parentKey) || null);

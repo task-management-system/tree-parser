@@ -309,3 +309,87 @@ describe('Структуры с пустыми строками', () => {
         ]);
     });
 });
+
+describe('Структуры с нарушениями табуляции', () => {
+    it('Неверные табуляции в дочерних элементах структуры', () => {
+        assert.deepStrictEqual(parse(use(11)), [
+            {
+                name: 'А1',
+                children: [
+                    {
+                        name: 'А1.1',
+                        children: [
+                            {
+                                name: 'А1.2',
+                                children: [
+                                    {
+                                        name: 'А1.2.1',
+                                        children: [
+                                            {
+                                                name: 'А1.2.1.1',
+                                                children: []
+                                            },
+                                            {
+                                                name: 'А1.2.1.2',
+                                                children: []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: 'А1.2.2',
+                                        children: []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: 'Б1',
+                children: [
+                    {
+                        name: 'Б1.1',
+                        children: []
+                    },
+                    {
+                        name: 'Б1.2',
+                        children: [
+                            {
+                                name: 'Б1.2.1',
+                                children: []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: 'В1',
+                children: [
+                    {
+                        name: 'В1.1',
+                        children: []
+                    },
+                    {
+                        name: 'В1.2',
+                        children: [
+                            {
+                                name: 'В1.2.1',
+                                children: [
+                                    {
+                                        name: 'В1.2.1.1',
+                                        children: []
+                                    }
+                                ]
+                            },
+                            {
+                                name: 'В1.2.2',
+                                children: []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]);
+    });
+});
