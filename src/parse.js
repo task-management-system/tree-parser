@@ -1,4 +1,11 @@
-const parse = text => {
+const ITEM_CREATOR = value => ({
+    name: value,
+    children: []
+});
+
+const CHILDREN_EXTRACTOR = entry => entry.children;
+
+const parse = (text, itemCreator = ITEM_CREATOR, childrenExtractor = CHILDREN_EXTRACTOR) => {
     const tree = [];
 
     const cache = new Map();
@@ -7,8 +14,8 @@ const parse = text => {
     let previousLevel = null;
 
     for (const line of lines) {
-        const name = line.trim();
-        if (name === '') {
+        const value = line.trim();
+        if (value === '') {
             continue;
         }
 
@@ -36,19 +43,16 @@ const parse = text => {
 
         const key = path.join('_');
         const parentKey = path.slice(0, path.length - 1).join('_');
-        const branch = {
-            name,
-            children: []
-        };
+        const item = itemCreator(value);
 
         if (!cache.has(key) || previousLevel >= level) {
-            cache.set(key, branch);
+            cache.set(key, item);
         }
 
         if (cache.has(parentKey)) {
-            cache.get(parentKey).children.push(branch);
+            childrenExtractor(cache.get(parentKey)).push(item);
         } else {
-            tree.push(branch);
+            tree.push(item);
         }
 
         previousLevel = level;

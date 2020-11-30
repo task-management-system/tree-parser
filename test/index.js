@@ -454,3 +454,101 @@ describe('Структуры с использоваением пробелов,
         ]);
     });
 });
+
+describe('Использование изменния структуры составления дерева', () => {
+    it('Изменение ключей имен', () => {
+        const itemCreator = value => ({
+            myValue: value,
+            children: []
+        });
+
+        assert.deepStrictEqual(parse(use(5), itemCreator), [
+            {
+                myValue: 'Элемент 1',
+                children: [
+                    {
+                        myValue: 'Элемент 2',
+                        children: []
+                    }
+                ]
+            },
+            {
+                myValue: 'Элемент 3',
+                children: [
+                    {
+                        myValue: 'Элемент 4',
+                        children: []
+                    }
+                ]
+            },
+        ]);
+    });
+
+    it('Изменение ключей имен и дочерних элементов', () => {
+        const itemCreator = value => ({
+            key: value,
+            items: []
+        });
+        const childrenExtractor = entry => entry.items;
+
+        assert.deepStrictEqual(parse(use(5), itemCreator, childrenExtractor), [
+            {
+                key: 'Элемент 1',
+                items: [
+                    {
+                        key: 'Элемент 2',
+                        items: []
+                    }
+                ]
+            },
+            {
+                key: 'Элемент 3',
+                items: [
+                    {
+                        key: 'Элемент 4',
+                        items: []
+                    }
+                ]
+            },
+        ]);
+    });
+
+    it('Изменение вложенности дочерних элементов', () => {
+        const itemCreator = value => ({
+            value: value,
+            nested: {
+                children: []
+            }
+        });
+        const childrenExtractor = entry => entry.nested.children;
+
+        assert.deepStrictEqual(parse(use(5), itemCreator, childrenExtractor), [
+            {
+                value: 'Элемент 1',
+                nested: {
+                    children: [
+                        {
+                            value: 'Элемент 2',
+                            nested: {
+                                children: []
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                value: 'Элемент 3',
+                nested: {
+                    children: [
+                        {
+                            value: 'Элемент 4',
+                            nested: {
+                                children: []
+                            }
+                        }
+                    ]
+                }
+            },
+        ]);
+    });
+});
