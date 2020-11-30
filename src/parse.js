@@ -1,10 +1,25 @@
+/**
+ * @param {T} value
+ * @returns {{ name: T, children: [] }}
+ *
+ * @template T
+ */
 const ITEM_CREATOR = value => ({
     name: value,
     children: []
 });
 
+/**
+ * @param {Object} entry
+ */
 const CHILDREN_EXTRACTOR = entry => entry.children;
 
+/**
+ * Преобразовывает текст в древовидную структуру.
+ * @param {string} text Тект структуры
+ * @param {Function} itemCreator Функция, определяющая модель каждого элемента структуры
+ * @param {Function} childrenExtractor Функция, возвращающая дочерние элементы определенного элемента структуры
+ */
 const parse = (text, itemCreator = ITEM_CREATOR, childrenExtractor = CHILDREN_EXTRACTOR) => {
     const tree = [];
 
