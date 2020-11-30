@@ -1,0 +1,12 @@
+{
+    "name": "tree-parser",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "start": "node src",
+        "test": "mocha test"
+    },
+    "devDependencies": {
+        "mocha": "^8.2.1"
+    }
+}
