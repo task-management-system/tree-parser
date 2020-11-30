@@ -393,3 +393,64 @@ describe('Структуры с нарушениями табуляции', () =
         ]);
     });
 });
+
+describe('Структуры с использоваением пробелов, вместо табуляции', () => {
+    it('Одинарные пробелы', () => {
+        assert.deepStrictEqual(parse(use(12)), [
+            {
+                name: '1',
+                children: [
+                    {
+                        name: '1.1',
+                        children: [
+                            {
+                                name: '1.1.1',
+                                children: []
+                            }
+                        ]
+                    },
+                    {
+                        name: '1.2',
+                        children: []
+                    }
+                ]
+            },
+            {
+                name: '2',
+                children: [
+                    {
+                        name: '2.1',
+                        children: []
+                    },
+                    {
+                        name: '2.2',
+                        children: [
+                            {
+                                name: '2.2.1',
+                                children: []
+                            }
+                        ]
+                    },
+                    {
+                        name: '2.3',
+                        children: [
+                            {
+                                name: '2.3.1',
+                                children: []
+                            },
+                            {
+                                name: '2.3.2',
+                                children: [
+                                    {
+                                        name: '2.3.2.1',
+                                        children: []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]);
+    });
+});
